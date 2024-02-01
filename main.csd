@@ -12,10 +12,21 @@ nchnls = 2
 
 instr Main
     ; INSERIRE PORTA COM
-    iPort serialBegin "/COM16", 9600			;connect to the arduino with baudrate = 9600
-    kFreq serialRead iPort
-    aRes poscil3 0.5, kFreq
-    out aRes
+    ; connect to the arduino with baudrate = 9600
+    iPort serialBegin "/dev/ttyACM0", 9600			
+    kString serialRead iPort ;kString is used as controll parameter,
+                            ; does not hold the value
+    iFreq = 0   ; 
+    ;to avoid use of -1
+    ;not sending string, treating serial message as control value
+    if (kString == 4 ) then
+        kFreq = 440
+    elseif (kString == 5) then
+        kFreq = 880
+    endif
+    printk2 kFreq
+    aSig poscil3 0.5, kFreq
+    out aSig
 endin
 
 ; Prima chiamata, punto di inizio del programma

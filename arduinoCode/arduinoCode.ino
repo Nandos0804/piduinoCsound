@@ -4,9 +4,9 @@ void setup() {
 }
 
 void loop() {
-  Serial.write("440");
+  Serial.write(4);
   delay(2000);
-  Serial.write("880");
+  Serial.write(5);
   delay(2000);
 
 }
